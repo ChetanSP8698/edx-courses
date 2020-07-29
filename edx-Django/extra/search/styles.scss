@@ -1,0 +1,14 @@
+
+$color : red;
+
+body {
+	background-color: powderblue;
+}
+
+h1   {
+	color: $color;
+}
+
+p    {
+	color: $color;
+}
