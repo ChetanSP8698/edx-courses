@@ -26,12 +26,22 @@ def search(request):
 
 	list = []
 	for item in entries:
-		if item.lower().find(search_req.lower()) == -1:
+		lcase = item.lower()
+		if lcase.find(search_req.lower()) == -1:
 			pass
 		else:
 			list.append(item)
 
-	if len(list) > 1:
+	if len(list) > 1 :
+		return render(request, "encyclopedia/search.html", {
+			"output" : list
+		})
+
+	elif len(list) == 1:
+		for item in entries:
+			if re.match(search_req, item, flags=re.IGNORECASE) and len(search_req) == len(item):
+				return HttpResponseRedirect(f"wiki/{item}")
+			
 		return render(request, "encyclopedia/search.html", {
 			"output" : list
 		})
@@ -40,6 +50,8 @@ def search(request):
 		for item in entries:
 			if re.match(search_req, item, flags=re.IGNORECASE) and len(search_req) == len(item):
 				return HttpResponseRedirect(f"wiki/{item}")
+			else:
+				return render(request, "encyclopedia/error.html")
 
 	
 def create(request) :
