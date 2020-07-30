@@ -1,0 +1,27 @@
+{% extends "encyclopedia/layout.html" %}
+ 
+{% block title %}
+    Encyclopedia
+{% endblock %}
+ 
+{% block body %}
+        
+    <h2>Edit Wiki Page</h2><br>
+
+    <form name="edit_form" action="{% url 'edit' %}"  method="post">
+        
+        {% csrf_token %}
+        <h3> Current page : {{ title }}
+            <textarea name="edited_title" hidden>{{ title }}</textarea> 
+        </h3>
+        <br>
+        Edit the page content in Markdown language :
+        <textarea name="edited_content" placeholder="Edit the page content" required>
+            {{ content }}
+        </textarea>
+        <br>
+        <input type="submit" value="Save Changes" />
+
+    </form>
+
+{% endblock %}

@@ -5,12 +5,11 @@
 {% endblock %}
  
 {% block body %}
- 
-    <ul>
              
             {{ entries|safe }}
-             
-         
-    </ul>
+            <br>
+            <form name="Edit_page" action="{% url 'edit' %}" method="get">
+                <input type="submit" value="Edit Page"/>
+            </form>
  
 {% endblock %}
