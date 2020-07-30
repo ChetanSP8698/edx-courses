@@ -5,11 +5,12 @@
 {% endblock %}
  
 {% block body %}
- 
+    <h1>All Search Related Pages</h1>
+
     <ul>
-             
-            {{ entries|safe }}
-         
+        {% for entry in output %}
+            <li><a href="/wiki/{{entry}}">{{ entry }}</a></li>
+        {% endfor %}
     </ul>
  
 {% endblock %}
