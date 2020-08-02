@@ -3,5 +3,12 @@
 {% block body %}
     <h2>Create Listings</h2>
 
-    
+    <form action="{% url 'create_listing' %}" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form }}
+        </table>
+        <br>
+        <input class="btn btn-primary" type="submit" value="Save Listing">
+    </form>
 {% endblock %}

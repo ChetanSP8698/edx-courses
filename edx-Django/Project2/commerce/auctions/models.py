@@ -8,7 +8,8 @@ Categories = [
     ('HF', 'Home & Furniture'),
     ('SP', 'Sports'),
     ('BK', 'Books'),
-    ('CR', 'Cars')
+    ('CR', 'Cars'),
+    ('OT', 'Others')
 ]
 
 class User(AbstractUser):

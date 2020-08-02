@@ -1,3 +1,12 @@
 body {
     padding: 10px;
+    background-color: black;
+}
+
+h1 {
+    color: blue;
+}
+
+table {
+    padding: 10px;
 }
