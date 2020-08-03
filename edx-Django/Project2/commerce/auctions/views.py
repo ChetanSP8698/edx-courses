@@ -9,7 +9,10 @@ from .models import User, listings, bid, comments
 from .forms import listing_form
 
 def index(request):
-    return render(request, "auctions/index.html")
+    entries = listings.objects.all()
+    return render(request, "auctions/index.html", {
+        "entries" : entries
+    })
 
 
 def login_view(request):
@@ -67,6 +70,15 @@ def register(request):
 def create_listing(request):
     if request.method == 'POST':
         form = listing_form(request.POST)
+        if form.is_valid():
+            obj = listings()
+            obj.item_title = form.cleaned_data['title']
+            obj.item_image = form.cleaned_data['image']
+            obj.item_des = form.cleaned_data['descr']
+            obj.item_price = form.cleaned_data['bid']
+            obj.item_category = form.cleaned_data['category']
+            obj.save()
+            return HttpResponseRedirect('/')
     else:
         form = listing_form()
         

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.conf import settings
 
 Categories = [
     ('FS', 'Fashion'),
@@ -24,9 +25,9 @@ class listings(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     item_category = models.CharField(choices = Categories, max_length=2)
     avail_item = models.BooleanField(default=True)
-    item_winner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="winner")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    item_winner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="Winner")
+
     def __str__(self):
         return f"{self.item_id}, {self.item_title}"
 

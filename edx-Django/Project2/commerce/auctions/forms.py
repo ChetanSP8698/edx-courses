@@ -1,23 +1,20 @@
 from django import forms
+from .models import listings, Categories
 
-Categories = [
-    ('FS', 'Fashion'),
-    ('EC', 'Electronics'),
-    ('BE', 'Beauty'),
-    ('HF', 'Home & Furniture'),
-    ('SP', 'Sports'),
-    ('BK', 'Books'),
-    ('CR', 'Cars'),
-    ('OT', 'Others')
-]
+'''
+class listing_form(forms.ModelForm):
+    class Meta:
+        model = listings
+        fields = ["item_title", "item_des", "item_image", "item_category", "item_price"]
+'''
 
 class listing_form(forms.Form):
-    title = forms.CharField(label='Title', max_length=64)
+    title = forms.CharField(label='Title  ', max_length=64)
     descr = forms.CharField(
-        label='Description', 
+        label='Description  ', 
         max_length=512, 
-        widget=forms.Textarea(attrs={'rows':5, 'cols':50}),
+        widget=forms.Textarea(attrs={'rows':5, 'cols':30}),
     )
-    image = forms.URLField(label='Image URL', required=False)
-    category = forms.ChoiceField(required=False, label='Category', choices=Categories)
-    bid = forms.FloatField(label='Starting Bid')
+    image = forms.URLField(label='Image URL  ', required=False)
+    category = forms.ChoiceField(required=False, label='Category  ', choices=Categories)
+    bid = forms.FloatField(label='Starting Bid  ')

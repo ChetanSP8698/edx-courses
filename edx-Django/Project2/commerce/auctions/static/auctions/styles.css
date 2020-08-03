@@ -1,6 +1,6 @@
 body {
     padding: 10px;
-    background-color: black;
+    background-color: white;
 }
 
 h1 {
@@ -9,4 +9,10 @@ h1 {
 
 table {
     padding: 10px;
+    border-collapse: separate;
+    border-spacing: 20px;
+}
+
+#save_list {
+    margin-left: 400px;
 }
