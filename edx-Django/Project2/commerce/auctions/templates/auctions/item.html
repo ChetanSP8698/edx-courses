@@ -2,17 +2,10 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-
-    {% if not entries %}
-    <br>
-        <h3> Nothing Listed yet.... </h3>
-    
-    {% else %}
-    
+    {{ item }}
+    <!--
     {% for item in entries %}
     <br>
-    
-    <a class="active" href="{% url "item" item.0 %}">
     <table class="active_list">
         <tr>
             <td rowspan="4">
@@ -22,7 +15,7 @@
                 <h3>{{ item.2 }}<h3>
             </td>
             <td>
-                {{ item.3 }}
+                Description :  {{ item.3 }}
             </td>
         </tr>
         <tr>
@@ -36,7 +29,7 @@
             </td>
         </tr>
     </table>
-    </a>
     {% endfor %}
-    {% endif %}
+    -->
+
 {% endblock %}

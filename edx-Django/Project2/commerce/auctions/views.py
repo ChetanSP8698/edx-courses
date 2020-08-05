@@ -12,7 +12,7 @@ def index(request):
     list = []
     entries = listings.objects.values_list()
     for item in entries:
-        list.append(item[1:6])
+        list.append(item[0:6])
 
     return render(request, "auctions/index.html", {
         "entries" : list
@@ -88,4 +88,10 @@ def create_listing(request):
         
     return render(request, "auctions/listings.html", {
         'form' : form
+    })
+
+def item(request, id):
+    obj = listings.objects.get(item_id=id)
+    return render(request, "auctions/item.html", {
+        "item" : obj
     })
