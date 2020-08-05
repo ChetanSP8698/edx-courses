@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from .models import User, listings, bid, comments
+from .models import User, listings, bid, comments, Categories
 from .forms import listing_form
 
 def index(request):
@@ -92,9 +92,16 @@ def create_listing(request):
 
 def item(request, id):
     obj = listings.objects.values_list()
+    info = []
     for i in obj:
         if id == int(i[0]):
             it = i
+    for item in it:
+        info.append(item)
+    
+    for cat in Categories:
+        if cat[0] == info[6]:
+            info[6] = cat[1]
     return render(request, "auctions/item.html", {
-        "item" : it
+        "item" : info
     })

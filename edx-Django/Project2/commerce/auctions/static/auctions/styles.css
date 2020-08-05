@@ -1,6 +1,6 @@
 body {
     padding: 10px;
-    background-color: yellowgreen;
+    background-color: white;
 }
 .body-header {
     background-image: linear-gradient(-180deg, orange, yellow);
@@ -24,9 +24,21 @@ table.create_list {
 }
 
 table.active_list {
+    border-collapse: separate;
+    border-spacing: 20px;
+    padding: 20px;
+    width: 100%;
     border: 1px solid gray;
     background-color: #efefef;
 }
+
+table.item_info {
+    border-collapse: separate;
+    border-spacing: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
 td {
     padding: 0px 50px 0px 50px; 
 }
