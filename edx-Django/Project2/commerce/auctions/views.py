@@ -91,7 +91,10 @@ def create_listing(request):
     })
 
 def item(request, id):
-    obj = listings.objects.get(item_id=id)
+    obj = listings.objects.values_list()
+    for i in obj:
+        if id == int(i[0]):
+            it = i
     return render(request, "auctions/item.html", {
-        "item" : obj
+        "item" : it
     })
