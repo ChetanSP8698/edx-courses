@@ -29,7 +29,7 @@ class listings(models.Model):
     item_winner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="Winner")
 
     def __str__(self):
-        return f"{self.item_id}, {self.item_title}"
+        return f"{self.item_title}, {self.item_des}, {self.item_price}, {self.item_image}, {self.item_category}"
 
 class bid(models.Model):
     pass

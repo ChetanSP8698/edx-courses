@@ -2,8 +2,31 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-
     {% for item in entries %}
-        {{ item }}
+    <table>
+        <tr>
+            <td rowspan="4">
+                <img src="{{item.0}}" alt="Item Image">
+            </td>
+            <td rowspan="4">
+                <h3>{{item.1}}<h3>
+            </td>
+            <td>
+                Description : {{item.2}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Price : $ {{item.3}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <small> {{ item.4 }} </small>
+            </td>
+        </tr>
+    </table>
+  
     {% endfor %}
+
 {% endblock %}

@@ -9,9 +9,13 @@ from .models import User, listings, bid, comments
 from .forms import listing_form
 
 def index(request):
-    entries = listings.objects.all()
+    list = []
+    entries = listings.objects.values_list()
+    for item in entries:
+        list.append(item[1:6])
+
     return render(request, "auctions/index.html", {
-        "entries" : entries
+        "entries" : list
     })
 
 
