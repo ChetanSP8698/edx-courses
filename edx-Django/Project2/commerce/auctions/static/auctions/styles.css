@@ -56,7 +56,12 @@ img {
     margin-left: 400px;
 }
 
+#watch_list {
+    position: relative;
+    margin-left: 1000px;
+}
+
 #status {
-    text-align: right;
-    margin-left: 800px;
+    position : relative;
+    margin-left: auto;
 }

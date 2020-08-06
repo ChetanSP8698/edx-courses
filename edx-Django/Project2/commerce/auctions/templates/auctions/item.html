@@ -33,5 +33,17 @@
             </td>
         </tr>
     </table>
-
+    {% if flag == 'yes' %}
+    <form action="{% url 'watchlist' item.0 %}" method="post">
+        {% csrf_token %}
+        <br>
+        <input class="btn btn-primary" id="watch_list" type="submit" value="Add to Watchlist">
+    </form>
+    {% else %}
+    <form action="{% url 'watchlist' item.0 %}" method="get">
+        {% csrf_token %}
+        <br>
+        <input class="btn btn-primary" id="watch_list" type="submit" value="Remove from Watchlist">
+    </form>
+    {% endif %}
 {% endblock %}

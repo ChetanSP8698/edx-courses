@@ -36,3 +36,6 @@ class bid(models.Model):
 
 class comments(models.Model):
     pass
+
+class watch_list(models.Model):
+    watch_list_item = models.ForeignKey(listings, on_delete=models.CASCADE, null=True)

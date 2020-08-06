@@ -1,0 +1,43 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watch List</h2>
+
+    {% if not entries %}
+    <br>
+        <h3> Nothing Watchlisted yet.... </h3>
+    
+    {% else %}
+    
+    {% for item in entries %}
+    <br>
+    
+    <a class="active" href="{% url "item" item.0 %}">
+    <table class="active_list">
+        <tr>
+            <td rowspan="4">
+                <img src="{{ item.1 }}" alt="Item Image">
+            </td>
+            <td rowspan="4">
+                <h3>{{ item.2 }}<h3>
+            </td>
+            <td>
+                {{ item.3 }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Price :  Rs. {{ item.4 }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <small>Created on {{ item.5 }} </small>
+            </td>
+        </tr>
+    </table>
+    </a>
+    {% endfor %}
+    {% endif %}
+
+{% endblock %}

@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from .models import User, listings, bid, comments, Categories
+from .models import User, listings, bid, comments, Categories, watch_list
 from .forms import listing_form
 
 def index(request):
@@ -92,6 +92,7 @@ def create_listing(request):
 
 def item(request, id):
     obj = listings.objects.values_list()
+    watlist = watch_list.objects.values_list()
     info = []
     for i in obj:
         if id == int(i[0]):
@@ -102,6 +103,59 @@ def item(request, id):
     for cat in Categories:
         if cat[0] == info[6]:
             info[6] = cat[1]
-    return render(request, "auctions/item.html", {
-        "item" : info
+    flag = 0
+    for i in watlist:
+        if id in i:
+            flag = 1
+    
+    if flag == 1:
+        return render(request, "auctions/item.html", {
+            "item" : info,
+            "flag" : 'no'
+        })
+    else:
+        return render(request, "auctions/item.html", {
+            "item" : info,
+            "flag" : 'yes'
+        })
+
+
+@login_required(login_url='login')
+def watchlist(request, val):
+    watlist = watch_list.objects.values_list()
+    obj = listings.objects.values_list()
+    wl = []
+    for i in watlist:
+        wl.append(i[1])
+    info = []
+    for v in obj:
+        for t in wl:
+            if t == v[0]:
+                info.append(v)
+    
+    if val == 0:
+        return render(request, "auctions/watchlist.html", {
+            "entries" : info
+        })
+    
+    elif request.method == 'POST':
+        obj = watch_list()
+        obj.watch_list_item = listings.objects.get(item_id=val)
+        obj.save()
+        return HttpResponseRedirect("/")
+    
+    elif request.method == 'GET':
+        inst = watch_list.objects.filter(watch_list_item=val)
+        inst.delete()
+        return HttpResponseRedirect("/")
+    
+    else:
+        return render(request, "auctions/watchlist.html", {
+            "entries" : wl
+        })
+
+def categories(request):
+    user = watch_list.objects.values_list()
+    return render(request, "auctions/categories.html", {
+        "entries" : user
     })
