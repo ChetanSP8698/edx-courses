@@ -39,6 +39,12 @@ table.item_info {
     width: 100%;
 }
 
+table.watch_list {
+    border-collapse: separate;
+    border-spacing: 20px;
+    padding: 50px;
+}
+
 td {
     padding: 0px 50px 0px 50px; 
 }

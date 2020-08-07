@@ -13,21 +13,27 @@
     <br>
     
     <a class="active" href="{% url "item" item.0 %}">
-    <table class="active_list">
+    <table class="watch_list">
         <tr>
-            <td rowspan="4">
+            <td colspan="2">
                 <img src="{{ item.1 }}" alt="Item Image">
             </td>
-            <td rowspan="4">
+        </tr>
+        <tr>
+            <td colspan="2">
                 <h3>{{ item.2 }}<h3>
             </td>
+        </tr>
             <td>
                 {{ item.3 }}
+            </td>
+            <td>
+                Price :  Rs. {{ item.4 }}
             </td>
         </tr>
         <tr>
             <td>
-                Price :  Rs. {{ item.4 }}
+                Category : {{ item.5 }}
             </td>
         </tr>
         <tr>

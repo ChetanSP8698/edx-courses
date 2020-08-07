@@ -159,3 +159,15 @@ def categories(request):
     return render(request, "auctions/categories.html", {
         "entries" : user
     })
+
+@login_required(login_url='login')
+def do_bid(request):
+    if request.method == "POST":
+        done_bid = request.POST["Bid"]
+        obj = bid.objects.values_list(flat=True)
+        
+        
+        return render(request, "auctions/bid.html", {
+            "val" : obj,
+            "bid" : done_bid
+        })
