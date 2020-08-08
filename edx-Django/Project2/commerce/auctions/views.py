@@ -79,9 +79,10 @@ def create_listing(request):
             obj.item_title = form.cleaned_data['title']
             obj.item_image = form.cleaned_data['image']
             obj.item_des = form.cleaned_data['descr']
-            obj.item_price = form.cleaned_data['bid']
+            obj.item_price = form.cleaned_data['price']
             obj.item_category = form.cleaned_data['category']
             obj.user = request.user
+            obj.item_starting_bid = form.cleaned_data['bid']
             obj.save()
             return HttpResponseRedirect('/')
     else:
@@ -95,9 +96,20 @@ def item(request, id):
     obj = listings.objects.values_list()
     watlist = watch_list.objects.values_list()
     item = listings.objects.get(pk=id)
-    price = float(item.item_price)
-    startingbid = price * (0.01)
-
+    startingbid = int(item.item_starting_bid)
+    count = 0
+    b = bid.objects.values_list()
+    listbid = []
+    
+    for it in b:
+        if it[2] == id:
+            count += 1
+            listbid.append(it[1])
+    
+    if len(listbid) == 0:
+        max_bid = startingbid
+    else :
+        max_bid = float(max(listbid))
     info = []
     for i in obj:
         if id == int(i[0]):
@@ -113,17 +125,25 @@ def item(request, id):
         if id in i:
             flag = 1
     
+    user = User.objects.get(pk=info[8])
+    
     if flag == 1:
         return render(request, "auctions/item.html", {
             "item" : info,
             "flag" : 'no',
-            "startingbid" : startingbid
+            "startingbid" : startingbid,
+            "bidcount" : count,
+            "maxbid" : max_bid,
+            "user" :user
         })
     else:
         return render(request, "auctions/item.html", {
             "item" : info,
             "flag" : 'yes',
-            "startingbid" : startingbid
+            "startingbid" : startingbid,
+            "bidcount" : count,
+            "maxbid" : max_bid,
+            "user" : user
         })
 
 
@@ -170,27 +190,42 @@ def categories(request):
 @login_required(login_url='login')
 def do_bid(request, idfb):
     item = listings.objects.get(pk=idfb)
-    price = float(item.item_price)
-    startingbid = price * (0.01)
+    having_bid = bid.objects.values_list()
+    startingbid = int(item.item_starting_bid)
+    flag = 0
     obj = bid()
-    obj.listing = item
-    obj.item_bid = startingbid
-    obj.save()
+    
+    listbid = []
+    for it in having_bid:
+        if it[2] == idfb:
+            listbid.append(it[1])
+    
+    if len(listbid) == 0:
+        flag = 1
+        obj.item_bid = startingbid
+        obj.listing = item
+        obj.save()
+    else :
+        flag = 0
+    
     if request.method == "POST":
         done_bid = float(request.POST["Bid"])
-        having_bid = bid.objects.values_list()
-        #max_bid = max(having_bid)
-        #max_bid = float(max_bid)
-        
-        if 1 :
-            return render(request, "auctions/bid.html", {
-                "max_val" : obj,
-                "bid" : having_bid,
-                "startingbid" : done_bid
-            })
+        if flag == 1:
+            max_bid = startingbid
+        else :
+            max_bid = float(max(listbid))
+
+        if done_bid > max_bid :
+            obj.item_bid = done_bid
+            obj.listing = item
+            obj.save()
+            
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
-            return render(request, "auctions/bid.html", {
-                "val" : None,
-                "bid" : None,
-                "startingbid" : None
+            return render(request, "auctions/biderror.html", {
+                "value" : max_bid 
             })
+
+def biddings(request):
+    next = request.POST.get('next', '/')
+    return HttpResponseRedirect(next)

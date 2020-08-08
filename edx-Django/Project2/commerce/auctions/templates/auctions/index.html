@@ -15,17 +15,15 @@
     <a class="active" href="{% url "item" item.0 %}">
     <table class="active_list">
         <tr>
-            <td rowspan="4">
+            <td>
                 <img src="{{ item.1 }}" alt="Item Image">
             </td>
-            <td rowspan="4">
+            <td>
                 <h3>{{ item.2 }}<h3>
             </td>
-            <td>
+             <td>
                 {{ item.3 }}
             </td>
-        </tr>
-        <tr>
             <td>
                 Price :  Rs. {{ item.4 }}
             </td>

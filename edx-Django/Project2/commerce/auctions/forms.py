@@ -17,4 +17,5 @@ class listing_form(forms.Form):
     )
     image = forms.URLField(label='Image URL  ', required=False)
     category = forms.ChoiceField(required=False, label='Category  ', choices=Categories)
+    price = forms.FloatField(label='Pricing ')
     bid = forms.FloatField(label='Starting Bid  ')

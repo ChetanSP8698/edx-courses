@@ -26,6 +26,7 @@ class listings(models.Model):
     item_category = models.CharField(choices = Categories, max_length=2)
     avail_item = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    item_starting_bid = models.FloatField(null=True)
     item_winner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="Winner")
 
     def __str__(self):

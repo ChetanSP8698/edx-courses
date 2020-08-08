@@ -1,0 +1,10 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Bid Error</h2>
+    
+    The Bid value should be greater than Rs. {{value}}
+    <br>
+    <br>
+    <a href="{% url 'biddings' %}?next={{ request.path|urlencode }}"> Back to Bidding</a>
+{% endblock %}

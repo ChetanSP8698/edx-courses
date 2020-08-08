@@ -2,7 +2,7 @@
 
 {% block body %}
     <h2>Item Information</h2>
-    <br>
+
     {% if flag == 'yes' %}
     <form action="{% url 'watchlist' item.0 %}" method="post">
         {% csrf_token %}
@@ -46,15 +46,20 @@
                 <small>Created on {{ item.5 }} </small>
             </td>
         </tr>
+        <tr>
+            <td>
+                Listed by : {{ user }}
+            </td>
+        </tr>
     </table>
     
     <form action="{% url 'do_bid' item.0 %}" method="post">
         {% csrf_token %}
-        <p> Starting Bid :  Rs. {{ startingbid }}</p>
-        <br>
-        Rs. 
-        <input autofocus type="text" name="Bid" placeholder="Place Bid">
-        <input class="btn btn-primary" type="submit" value="Bid">
+        <p> Starting Bid :  Rs. {{ startingbid }}  and  Current Highest Bid : Rs. {{ maxbid }}</p>
+        <p><small>{{ bidcount }} bids so far. This is your current bid.</small></p>
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <p>Rs. <input autofocus type="text" name="Bid" placeholder="Your Bid"></p>
+        <input class="btn btn-primary" type="submit" value="Place Bid">
     </form>
 
     

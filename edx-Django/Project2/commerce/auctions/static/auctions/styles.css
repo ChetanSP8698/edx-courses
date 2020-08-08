@@ -25,8 +25,9 @@ table.create_list {
 
 table.active_list {
     border-collapse: separate;
-    border-spacing: 20px;
-    padding: 20px;
+    border-spacing: 10px;
+    table-layout : auto;
+    padding: 10px;
     width: 100%;
     border: 1px solid gray;
     background-color: #efefef;
@@ -40,9 +41,12 @@ table.item_info {
 }
 
 table.watch_list {
+    table-layout:fixed;
     border-collapse: separate;
-    border-spacing: 20px;
-    padding: 50px;
+    padding: 2px;
+    width : 100%;
+    border: 1px solid gray;
+    background-color: #aaffaa;
 }
 
 td {
@@ -55,11 +59,16 @@ a.active {
 
 img {
     height: 200px;
-    width: 300px;
+    width: 250px;
+}
+
+img#watchimg {
+    height: 100px;
+    width: 130px;
 }
 
 #save_list {
-    margin-left: 400px;
+    margin-left: 600px;
 }
 
 #watch_list {
