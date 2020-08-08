@@ -32,7 +32,8 @@ class listings(models.Model):
         return f"{self.item_title}, {self.item_des}, {self.item_price}, {self.item_image}, {self.item_category}"
 
 class bid(models.Model):
-    bid = models.ForeignKey(listings, on_delete=models.CASCADE, null=True)
+    item_bid = models.FloatField(null=True)
+    listing = models.ForeignKey(listings, on_delete=models.CASCADE, null=True, related_name="bid")
 
 class comments(models.Model):
     pass

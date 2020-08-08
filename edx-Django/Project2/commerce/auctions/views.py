@@ -81,6 +81,7 @@ def create_listing(request):
             obj.item_des = form.cleaned_data['descr']
             obj.item_price = form.cleaned_data['bid']
             obj.item_category = form.cleaned_data['category']
+            obj.user = request.user
             obj.save()
             return HttpResponseRedirect('/')
     else:
@@ -93,6 +94,10 @@ def create_listing(request):
 def item(request, id):
     obj = listings.objects.values_list()
     watlist = watch_list.objects.values_list()
+    item = listings.objects.get(pk=id)
+    price = float(item.item_price)
+    startingbid = price * (0.01)
+
     info = []
     for i in obj:
         if id == int(i[0]):
@@ -111,12 +116,14 @@ def item(request, id):
     if flag == 1:
         return render(request, "auctions/item.html", {
             "item" : info,
-            "flag" : 'no'
+            "flag" : 'no',
+            "startingbid" : startingbid
         })
     else:
         return render(request, "auctions/item.html", {
             "item" : info,
-            "flag" : 'yes'
+            "flag" : 'yes',
+            "startingbid" : startingbid
         })
 
 
@@ -161,13 +168,29 @@ def categories(request):
     })
 
 @login_required(login_url='login')
-def do_bid(request):
+def do_bid(request, idfb):
+    item = listings.objects.get(pk=idfb)
+    price = float(item.item_price)
+    startingbid = price * (0.01)
+    obj = bid()
+    obj.listing = item
+    obj.item_bid = startingbid
+    obj.save()
     if request.method == "POST":
-        done_bid = request.POST["Bid"]
-        obj = bid.objects.values_list(flat=True)
+        done_bid = float(request.POST["Bid"])
+        having_bid = bid.objects.values_list()
+        #max_bid = max(having_bid)
+        #max_bid = float(max_bid)
         
-        
-        return render(request, "auctions/bid.html", {
-            "val" : obj,
-            "bid" : done_bid
-        })
+        if 1 :
+            return render(request, "auctions/bid.html", {
+                "max_val" : obj,
+                "bid" : having_bid,
+                "startingbid" : done_bid
+            })
+        else:
+            return render(request, "auctions/bid.html", {
+                "val" : None,
+                "bid" : None,
+                "startingbid" : None
+            })

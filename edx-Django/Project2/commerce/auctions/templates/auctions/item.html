@@ -48,8 +48,9 @@
         </tr>
     </table>
     
-    <form action="{% url 'do_bid' %}" method="post">
+    <form action="{% url 'do_bid' item.0 %}" method="post">
         {% csrf_token %}
+        <p> Starting Bid :  Rs. {{ startingbid }}</p>
         <br>
         Rs. 
         <input autofocus type="text" name="Bid" placeholder="Place Bid">
