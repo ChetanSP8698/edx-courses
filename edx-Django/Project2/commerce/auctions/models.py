@@ -34,6 +34,7 @@ class listings(models.Model):
 
 class bid(models.Model):
     item_bid = models.FloatField(null=True)
+    bid_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     listing = models.ForeignKey(listings, on_delete=models.CASCADE, null=True, related_name="bid")
 
 class comments(models.Model):

@@ -67,6 +67,25 @@ img#watchimg {
     width: 130px;
 }
 
+img.cat_img {
+    height: 170px;
+    width: 170px;
+}
+
+p.cat_name {
+    text-align: center;
+    padding : 20px;
+    text-emphasis: bold;
+}
+
+table.cat_table {
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 40px;
+    padding: 20px;
+    width : 100%;
+}
+
 #save_list {
     margin-left: 600px;
 }

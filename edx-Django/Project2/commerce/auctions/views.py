@@ -182,9 +182,11 @@ def watchlist(request, val):
         })
 
 def categories(request):
-    user = watch_list.objects.values_list()
+    categories = []
+    for item in Categories:
+        categories.append(item[1])
     return render(request, "auctions/categories.html", {
-        "entries" : user
+        "categories" : categories
     })
 
 @login_required(login_url='login')
@@ -204,6 +206,7 @@ def do_bid(request, idfb):
         flag = 1
         obj.item_bid = startingbid
         obj.listing = item
+        obj.bid_user = request.user
         obj.save()
     else :
         flag = 0
@@ -218,6 +221,7 @@ def do_bid(request, idfb):
         if done_bid > max_bid :
             obj.item_bid = done_bid
             obj.listing = item
+            obj.bid_user = request.user
             obj.save()
             
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
