@@ -98,6 +98,7 @@ def item(request, id):
     item = listings.objects.get(pk=id)
     startingbid = int(item.item_starting_bid)
     count = 0
+    close = 0
     b = bid.objects.values_list()
     listbid = []
     
@@ -126,6 +127,13 @@ def item(request, id):
             flag = 1
     
     user = User.objects.get(pk=info[8])
+
+    if request.user == user:
+        close = 1
+        print("yes")
+    else:
+        close = 0
+        print("no")
     
     if flag == 1:
         return render(request, "auctions/item.html", {
@@ -134,7 +142,8 @@ def item(request, id):
             "startingbid" : startingbid,
             "bidcount" : count,
             "maxbid" : max_bid,
-            "user" :user
+            "user" :user,
+            "close" : close
         })
     else:
         return render(request, "auctions/item.html", {
@@ -143,7 +152,8 @@ def item(request, id):
             "startingbid" : startingbid,
             "bidcount" : count,
             "maxbid" : max_bid,
-            "user" : user
+            "user" : user,
+            "close" : close
         })
 
 
@@ -233,3 +243,7 @@ def do_bid(request, idfb):
 def biddings(request):
     next = request.POST.get('next', '/')
     return HttpResponseRedirect(next)
+
+@login_required(login_url='login')
+def close(request, cloid):
+    pass

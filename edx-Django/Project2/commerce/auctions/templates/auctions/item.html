@@ -16,7 +16,9 @@
         <input class="btn btn-primary" id="watch_list" type="submit" value="Remove from Watchlist">
     </form>
     {% endif %}
+    
     <br>
+    
     <table class="item_info">
         <tr>
             <td rowspan="4">
@@ -62,6 +64,14 @@
         <input class="btn btn-primary" type="submit" value="Place Bid">
     </form>
 
-    
+    {% if close == 1 %}
+    <form action="{% url 'close' item.0 %}" method="post">
+        {% csrf_token %}
+        
+        <br>
+        <p id="watch_list"> You can Close your auction listing from here... </p>
+        <input class="btn btn-primary" id="watch_list" type="submit" value="Close Auction">
+    </form>
+    {% endif %}
     
 {% endblock %}
