@@ -1,0 +1,10 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Auction Winner</h2>
+    
+    {{user}}
+    <br>
+    <a href="{% url 'biddings' %}?next={{ request.path|urlencode }}"> Back to Listings </a>
+
+{% endblock %}

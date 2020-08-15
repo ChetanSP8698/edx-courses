@@ -42,3 +42,4 @@ class comments(models.Model):
 
 class watch_list(models.Model):
     watch_list_item = models.ForeignKey(listings, on_delete=models.CASCADE, null=True)
+    watchlistuser = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

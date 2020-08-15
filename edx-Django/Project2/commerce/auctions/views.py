@@ -124,16 +124,15 @@ def item(request, id):
     flag = 0
     for i in watlist:
         if id in i:
-            flag = 1
+            if request.user == User.objects.get(pk=i[2]):
+                flag = 1
     
     user = User.objects.get(pk=info[8])
 
     if request.user == user:
         close = 1
-        print("yes")
     else:
         close = 0
-        print("no")
     
     if flag == 1:
         return render(request, "auctions/item.html", {
@@ -162,8 +161,11 @@ def watchlist(request, val):
     watlist = watch_list.objects.values_list()
     obj = listings.objects.values_list()
     wl = []
+    
     for i in watlist:
-        wl.append(i[1])
+        if request.user == User.objects.get(pk=i[2]):
+            wl.append(i[1])
+    
     info = []
     for v in obj:
         for t in wl:
@@ -178,12 +180,21 @@ def watchlist(request, val):
     elif request.method == 'POST':
         obj = watch_list()
         obj.watch_list_item = listings.objects.get(item_id=val)
+        obj.watchlistuser = request.user
         obj.save()
         return HttpResponseRedirect("/")
     
     elif request.method == 'GET':
-        inst = watch_list.objects.filter(watch_list_item=val)
-        inst.delete()
+        for i in User.objects.values_list():
+            if str(request.user) == str(i[4]):
+                print("yes2")
+                l = watch_list.objects.values_list()
+                for m in l:
+                    print("yes3")
+                    if i[0] == m[2]:
+                        inst = watch_list.objects.get(watch_list_item=val, watchlistuser=i[0])
+                        inst.delete()
+                        break
         return HttpResponseRedirect("/")
     
     else:
@@ -246,4 +257,11 @@ def biddings(request):
 
 @login_required(login_url='login')
 def close(request, cloid):
-    pass
+    item = listings.objects.get(pk=cloid)
+    having_bid = bid.objects.values_list()
+    
+    
+    return render(request, "auctions/close.html", {
+        'item': item,
+        'bidlist' : having_bid
+    })
