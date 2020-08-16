@@ -134,6 +134,14 @@ def item(request, id):
     else:
         close = 0
     
+    
+    com = comments.objects.values_list()
+    com_list = []
+    
+    for i in com:
+        if id == i[2]:
+            com_list.append(i)
+    
     if flag == 1:
         return render(request, "auctions/item.html", {
             "item" : info,
@@ -142,7 +150,8 @@ def item(request, id):
             "bidcount" : count,
             "maxbid" : max_bid,
             "user" :user,
-            "close" : close
+            "close" : close,
+            "comments" : com_list
         })
     else:
         return render(request, "auctions/item.html", {
@@ -152,7 +161,8 @@ def item(request, id):
             "bidcount" : count,
             "maxbid" : max_bid,
             "user" : user,
-            "close" : close
+            "close" : close,
+            "comments" : com_list
         })
 
 
@@ -210,6 +220,28 @@ def categories(request):
         "categories" : categories
     })
 
+def category_item(request, cat):
+    lists = listings.objects.values_list()
+    flag = 0
+    item = []
+    
+    for j in lists :
+        if str(j[6]) == str(cat):
+            item.append(j)
+    
+    for i in Categories:
+        if str(i[0]) == str(cat):
+            category = i[1]
+    
+    if len(item) == 0:
+        flag = 1
+    
+    return render(request, "auctions/cat_item.html", {
+        'items' : item,
+        'flag' : flag,
+        'category' : category
+    })
+
 @login_required(login_url='login')
 def do_bid(request, idfb):
     item = listings.objects.get(pk=idfb)
@@ -259,9 +291,27 @@ def biddings(request):
 def close(request, cloid):
     item = listings.objects.get(pk=cloid)
     having_bid = bid.objects.values_list()
+    max = 0
+    user = 0
+    for i in having_bid :
+        if i[1] > max:
+            max = i[1]
+            user = i[3]
     
+    winner = User.objects.get(pk=user)
+    
+    item.delete()
     
     return render(request, "auctions/close.html", {
-        'item': item,
-        'bidlist' : having_bid
+        'winner' : winner
     })
+    
+def done_comment(request, comid):
+    obj = comments()
+    curr_item = listings.objects.get(pk=comid)
+    if request.method == "POST":
+        obj.comment = request.POST.get('comment')
+        obj.c_listings = curr_item
+        obj.user_commented = request.user
+        obj.save()
+    return item(request, comid)

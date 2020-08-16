@@ -2,6 +2,7 @@ body {
     padding: 10px;
     background-color: white;
 }
+
 .body-header {
     background-image: linear-gradient(-180deg, orange, yellow);
 }
@@ -26,7 +27,7 @@ table.create_list {
 table.active_list {
     border-collapse: separate;
     border-spacing: 10px;
-    table-layout : auto;
+    table-layout: auto;
     padding: 10px;
     width: 100%;
     border: 1px solid gray;
@@ -40,17 +41,25 @@ table.item_info {
     width: 100%;
 }
 
+table.cat_items {
+    border-collapse: separate;
+    border-spacing: 15px;
+    padding: 20px;
+    width: 100%;
+    border: 2px solid gray;
+}
+
 table.watch_list {
-    table-layout:fixed;
+    table-layout: fixed;
     border-collapse: separate;
     padding: 2px;
-    width : 100%;
+    width: 100%;
     border: 1px solid gray;
     background-color: #aaffaa;
 }
 
 td {
-    padding: 0px 50px 0px 50px; 
+    padding: 0px 50px 0px 50px;
 }
 
 a.active {
@@ -74,7 +83,7 @@ img.cat_img {
 
 p.cat_name {
     text-align: center;
-    padding : 20px;
+    padding: 20px;
     text-emphasis: bold;
 }
 
@@ -83,7 +92,7 @@ table.cat_table {
     border-collapse: separate;
     border-spacing: 40px;
     padding: 20px;
-    width : 100%;
+    width: 100%;
 }
 
 #save_list {
@@ -96,6 +105,6 @@ table.cat_table {
 }
 
 #status {
-    position : relative;
+    position: relative;
     margin-left: auto;
 }

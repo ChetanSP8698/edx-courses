@@ -41,7 +41,7 @@
 
             <li class="nav-item" id="status">
             {% if user.is_authenticated %}
-                Signed in as <strong>{{ user.username }}</strong>.
+                Signed in as <strong>{{ request.user.get_username }}</strong>.
             {% else %}
                 Not signed in.
             {% endif %}

@@ -47,6 +47,16 @@
             <td>
                 <small>Created on {{ item.5 }} </small>
             </td>
+            <td rowspan="2">
+                {% if close == 1 %}
+                    <form action="{% url 'close' item.0 %}" method="post">
+                        {% csrf_token %}
+                        <div>You can Close your auction listing from here... </div>
+                        <input class="btn btn-primary" type="submit" value="Close Auction">
+                    </form>
+                {% endif %}
+    
+            </td>
         </tr>
         <tr>
             <td>
@@ -63,15 +73,19 @@
         <p>Rs. <input autofocus type="text" name="Bid" placeholder="Your Bid"></p>
         <input class="btn btn-primary" type="submit" value="Place Bid">
     </form>
-
-    {% if close == 1 %}
-    <form action="{% url 'close' item.0 %}" method="post">
+    
+    <hr>
+    <h4>Item Comments : </h4>
+    <ul>
+    {% for val in comments %}
+        <li> {{val.1}} </li>
+    {% endfor %}
+    </ul>
+    <form action="{% url 'done_comment' item.0 %}" method="post">
         {% csrf_token %}
-        
-        <br>
-        <p id="watch_list"> You can Close your auction listing from here... </p>
-        <input class="btn btn-primary" id="watch_list" type="submit" value="Close Auction">
+         
+        <p>Put Comment :</p> <textarea name="comment" rows="4" cols="50"></textarea>
+        <input class="btn btn-primary" type="submit" value="Comment">
     </form>
-    {% endif %}
     
 {% endblock %}

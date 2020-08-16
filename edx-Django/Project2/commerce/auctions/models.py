@@ -38,7 +38,9 @@ class bid(models.Model):
     bid_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
 class comments(models.Model):
-    pass
+    comment = models.TextField()
+    c_listings = models.ForeignKey(listings, on_delete=models.CASCADE, null=True, related_name="comment")
+    user_commented = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
 class watch_list(models.Model):
     watch_list_item = models.ForeignKey(listings, on_delete=models.CASCADE, null=True)

@@ -1,0 +1,45 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{ category }} Items</h2>
+       <br>
+    {% if flag == 1 %}
+        <h4> Nothing listed in this category.... </h4>
+    {%else%}
+        {% for item in items %}
+         <br>   
+       <table class="cat_items">
+        <tr>
+            <td rowspan="4">
+                <img src="{{ item.1 }}" alt="Item Image">
+            </td>
+            <td>
+                <h3>{{ item.2 }}<h3>
+            </td>
+            <td>
+               Current Price :  Rs. {{ item.4 }}
+            </td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td>
+                Description :  {{ item.3 }}
+            </td>
+
+            <td>
+                Category : {{ item.6 }}
+            </td>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+            <td>
+                <small>Created on {{ item.5 }} </small>
+            </td>
+        </tr>
+    </table>
+        {% endfor %}
+    
+    {% endif %}
+    
+{% endblock %}

@@ -3,7 +3,7 @@
 {% block body %}
     <h2>Auction Winner</h2>
     
-    {{user}}
+    The winner of this auctions is <strong>{{ winner }}</strong>.
     <br>
     <a href="{% url 'biddings' %}?next={{ request.path|urlencode }}"> Back to Listings </a>
 
